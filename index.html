@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    
+    <title>PhoneGap WP7</title>
+    
+	  <link rel="stylesheet" href="master.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+            
+      <script type="text/javascript" charset="utf-8" src="phonegap-1.3.0.js"></script>
+       
+    <script type="text/javascript">
+        document.addEventListener("deviceready", onDeviceReady, false);
+
+        // variable to output the current x, y & z values of the accelerometer
+        var valueX;
+        var valueY;
+        var valueZ;
+
+        // when PhoneGap tells us everything is ready, start watching the accelerometer
+        function onDeviceReady() {
+            valueX = document.getElementById("valueX");
+            valueY = document.getElementById("valueY");
+            valueZ = document.getElementById("valueZ");
+            startWatch();
+        }
+
+        // start monitoring the state of the accelerometer
+        function startWatch() {
+            var options = { frequency: 500 };
+            navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+        }
+
+        // if the z-axis has moved outside of our sensitivity threshold, move the aarvark's head in the appropriate direction
+        function onSuccess(acceleration) {
+            valueX.innerHTML = "X: " + acceleration.x;
+            valueY.innerHTML = "Y: " + acceleration.y;
+            valueZ.innerHTML = "Z: " + acceleration.z;
+        }
+
+        function onError() {
+            alert('onError!');
+        }
+    </script>
+  </head>
+    <body>
+        <h1>Accelerometer sample</h1>
+        <div id="valueX"></div>
+        <div id="valueY"></div>
+        <div id="valueZ"></div>
+    </body>
+</html>
